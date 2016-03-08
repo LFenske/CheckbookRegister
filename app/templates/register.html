@@ -1,0 +1,26 @@
+<div>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Cleared</th>
+        <th>Debit</th>
+        <th>Credit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="entry in entries">
+        <td>{{entry.checkno}}</td>
+        <td>{{entry.date}}</td>
+        <td>{{entry.name}}</td>
+        <td>{{entry.desc}}</td>
+        <td>{{entry.cleared}}</td>
+        <td class="right">{{entry.amount<0 ? (entry.amount | currency) : ''}}</td>
+                                           <td class="right">{{entry.amount>0 ? (entry.amount | currency) : ''}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

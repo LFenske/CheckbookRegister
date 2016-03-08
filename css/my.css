@@ -1,0 +1,36 @@
+thead {
+    font-weight: bold;
+    /*border-bottom: 3px solid black;*/
+}
+
+.table {
+    width: auto;
+}
+
+td, th,
+.table>tbody>tr>td,
+.table>thead>tr>th
+{
+    padding: 0px 5px 0px 5px;
+    vertical-align: top;
+}
+
+/* handled by table-bordered
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+*/
+
+.right {
+    text-align: right;
+}
+
+/* handled by table-striped
+tr:nth-child(even) {background: #EEF}
+tr:nth-child(odd)  {background: #FFF}
+*/
+

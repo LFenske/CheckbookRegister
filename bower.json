@@ -1,0 +1,27 @@
+{
+  "name": "checkbook",
+  "authors": [
+    "Larry Fenske <github@towanda.com>"
+  ],
+  "description": "Checkbook Register and Reconciliation",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "checkbook"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18"
+  }
+}

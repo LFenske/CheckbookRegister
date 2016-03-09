@@ -1,4 +1,6 @@
-angular.module('checkbook.services', [])
+'use strict';
+
+angular.module('checkbook.services', ['ngResource'])
 
     .constant('baseURL', 'http://localhost:3000/')
 
@@ -8,13 +10,11 @@ angular.module('checkbook.services', [])
         function(
             $resource,
             baseURL) {
-            this.getEntries = function() {
-                return $resource(baseURL+'register/:id', null, {
-                    'update': {
-                        method: 'PUT',
-                    }
-                });
-            };
+            return $resource(baseURL+'entries/:id', null, {
+                'update': {
+                    method: 'PUT',
+                }
+            });
         }])
 
 ;

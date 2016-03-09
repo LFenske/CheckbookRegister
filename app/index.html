@@ -13,7 +13,7 @@
     <!-- build:css css/main.css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" href="css/my.css"/>
+    <link rel="stylesheet" href="css/mystyles.css"/>
     <!-- endbuild -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -25,99 +25,16 @@
   </head>
 
   <body>
+    <h1>Checkbook Register</h1>
+    <div ui-view="content"></div>
 
-    <!--class="row row-content"-->
-    <div
-         ng-init="
-entries =
-[
-{
-checkno: '2045',
-date: '2016-03-01',
-name: 'ABC Company',
-desc: '3 widgets',
-amount: -45.00,
-cleared: '',
-},
-{
-checkno: '2046',
-date: '2016-03-02',
-name: 'XCel',
-desc: 'utilities',
-amount: -123.45,
-cleared: '07',
-},
-{
-checkno: '',
-date: '2016-03-03',
-name: 'pay',
-desc: '',
-amount: 2500.00,
-cleared: '',
-},
-{
-checkno: '',
-date: '2016-03-04',
-name: 'cash',
-desc: '',
-amount: -100.00,
-cleared: '',
-},
-]                  
-                  "
-         >
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Number</th>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Cleared</th>
-            <th>Debit</th>
-            <th>Credit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="entry in entries">
-            <td>{{entry.checkno}}</td>
-            <td>{{entry.date}}</td>
-            <td>{{entry.name}}</td>
-            <td>{{entry.desc}}</td>
-            <td>{{entry.cleared}}</td>
-            <td class="right">{{entry.amount<0 ? (entry.amount | currency) : ''}}</td>
-            <td class="right">{{entry.amount>0 ? (entry.amount | currency) : ''}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!--
-    <div>
-      <table class="table-striped">
-        <tr ng-repeat="x in names">
-          <td>{{x.Name   }}</td>
-          <td>{{x.Country}}</td>
-        </tr>
-      </table>
-    </div>
-    -->
-    
     <!-- build:js scripts/main.js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <!-- endbuild -->
-
-    <script>
-      var app=angular.module('myApp', [])
-      .controller('customersCtrl', function($scope, $http) {
-      $http.get("http://www.w3schools.com/angular/customers.php")
-      .then(function(response) {$scope.names = response.data.records;});
-      });
-    </script>
-    
   </body>
 </html>

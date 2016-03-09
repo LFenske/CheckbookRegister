@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "checkno": "2045",
+      "date": "2016-03-01",
+      "name": "ABC Company",
+      "desc": "3 widgets",
+      "amount": -45,
+      "cleared": ""
+    },
+    {
+      "id": 2,
+      "checkno": "2046",
+      "date": "2016-03-02",
+      "name": "XCel",
+      "desc": "utilities",
+      "amount": -123.45,
+      "cleared": "07"
+    },
+    {
+      "id": 3,
+      "checkno": "",
+      "date": "2016-03-03",
+      "name": "pay",
+      "desc": "",
+      "amount": 2500,
+      "cleared": ""
+    },
+    {
+      "id": 4,
+      "checkno": "",
+      "date": "2016-03-04",
+      "name": "cash",
+      "desc": "",
+      "amount": -100,
+      "cleared": ""
+    }
+  ]
+}

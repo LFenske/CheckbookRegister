@@ -17,11 +17,11 @@ angular.module('checkbook', [
                     'content': {
                         templateUrl: 'templates/register.html',
                         controller : 'RegisterController',
-//                        resolve: {
-//                            entries: ['registerFactory', function(registerFactory) {
-//                                return registerFactory.query();
-//                            }],
-//                        },
+                        resolve: {
+                            entries: ['registerFactory', function(registerFactory) {
+                                return registerFactory.query();
+                            }],
+                        },
                     },
                 },
             })

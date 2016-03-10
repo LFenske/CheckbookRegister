@@ -1,0 +1,30 @@
+balance
+entry number
+store in database
+  latest balance
+  next entry number
+authorization
+encryption
+top line with
+  balance
+  cleared
+  filter on uncleared
+  text to clear with
+  account dropdown
+  logout
+adaptable to small screen size
+multiple users - login
+multiple accounts
+edit entries
+  add
+  delete
+  move by dragging
+  change
+  clear
+undo
+slurp info from bank, drag to existing entry or create new
+page break
+book break
+book archive
+download
+print

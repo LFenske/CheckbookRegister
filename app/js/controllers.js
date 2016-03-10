@@ -4,12 +4,10 @@ angular.module('checkbook.controllers', [])
 
     .controller('RegisterController', [
         '$scope',
-        'registerFactory',
         'entries',
         'misc',
         function(
             $scope,
-            registerFactory,
             entries,
             misc) {
 

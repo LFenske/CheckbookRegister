@@ -10,11 +10,18 @@ angular.module('checkbook.services', ['ngResource'])
         function(
             $resource,
             baseURL) {
-            return $resource(baseURL+'entries/:id', null, {
-                'update': {
-                    method: 'PUT',
-                }
-            });
+            this.getEntries = function() {
+                return $resource(baseURL+'entries/:id',
+                                 null,
+                                 {'update': {method: 'PUT'}});
+            };
+
+            this.getMisc    = function() {
+                return $resource(baseURL+'misc/:id',
+                                 null,
+                                 {'update': {method: 'PUT'}});
+            };
+
         }])
 
 ;

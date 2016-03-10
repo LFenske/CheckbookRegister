@@ -19,7 +19,10 @@ angular.module('checkbook', [
                         controller : 'RegisterController',
                         resolve: {
                             entries: ['registerFactory', function(registerFactory) {
-                                return registerFactory.query();
+                                return registerFactory.getEntries().query();
+                            }],
+                            misc: ['registerFactory', function(registerFactory) {
+                                return registerFactory.getMisc().get({id:0}).$promise;
                             }],
                         },
                     },

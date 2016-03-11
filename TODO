@@ -7,7 +7,7 @@ x   next entry number
   top line with
 x   balance
 x   cleared
-    filter on uncleared
+x   filter on uncleared
     text to clear with
     account dropdown
     logout
@@ -30,3 +30,4 @@ x   cleared
   book archive
   download
   print
+  proper backend

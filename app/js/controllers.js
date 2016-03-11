@@ -25,6 +25,19 @@ angular.module('checkbook.controllers', [])
                     $scope.cleared -= $scope.entries[i].amount;
                 }
             }
+
+            var setFilterFunc = function(display_all) {
+                $scope.display_all = display_all;
+                $scope.filterFunc = display_all ? function(){return true;} : true;
+                $scope.filterText = display_all ? "All" : "Uncleared";
+            };
+
+            setFilterFunc(true);
+
+            $scope.toggleFilt = function() {
+                setFilterFunc(! $scope.display_all);
+            };
+
         }])
 
 ;

@@ -5,12 +5,14 @@
       <tr>
         <th>Balance</th>
         <th>Cleared</th>
+        <th ng-click="toggleFilt()">Display</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>{{misc.balance | currency}}</td>
         <td>{{cleared      | currency}}</td>
+        <td ng-click="toggleFilt()">{{filterText}}</td>
       </tr>
     </tbody>
   </table>
@@ -29,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="entry in entries">
+      <tr ng-repeat="entry in entries | filter:{cleared:''}:filterFunc">
         <td>{{entry.id+1}}</td>
         <td>{{entry.checkno}}</td>
         <td>{{entry.date}}</td>

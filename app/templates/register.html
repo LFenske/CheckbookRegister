@@ -1,5 +1,19 @@
 <div>
   <h2>Entries</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Balance</th>
+        <th>Cleared</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{misc.balance | currency}}</td>
+        <td>{{cleared      | currency}}</td>
+      </tr>
+    </tbody>
+  </table>
   <table class="table table-striped table-bordered">
     <thead>
       <tr>

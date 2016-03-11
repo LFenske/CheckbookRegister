@@ -1,15 +1,17 @@
+x striped
 x balance
 x entry number
 x store in database
 x   latest balance
 x   next entry number
   top line with
-    balance
-    cleared
+x   balance
+x   cleared
     filter on uncleared
     text to clear with
     account dropdown
     logout
+  top line in fixed position
   adaptable to small screen size
   edit entries
     add

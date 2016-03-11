@@ -16,10 +16,14 @@ angular.module('checkbook.controllers', [])
             $scope.entries = entries;
             $scope.misc    = misc;
 
-            var balance = $scope.misc.balance;
+            var balance    = $scope.misc.balance;
+            $scope.cleared = $scope.misc.balance;
             for (var i=$scope.misc.next_id-1; i>=0; i--) {
                 $scope.entries[i].balance = balance;
                 balance -= $scope.entries[i].amount;
+                if ($scope.entries[i].cleared === "") {
+                    $scope.cleared -= $scope.entries[i].amount;
+                }
             }
         }])
 

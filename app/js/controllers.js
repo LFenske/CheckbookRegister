@@ -1,13 +1,15 @@
 'use strict';
 
-angular.module('checkbook.controllers', [])
+angular.module('checkbook.controllers', ['ui.bootstrap'])
 
     .controller('RegisterController', [
         '$scope',
+        '$uibModal',
         'entries',
         'misc',
         function(
             $scope,
+            $uibModal,
             entries,
             misc) {
 
@@ -38,6 +40,42 @@ angular.module('checkbook.controllers', [])
                 setFilterFunc(! $scope.display_all);
             };
 
-        }])
+            $scope.openEntryForm = function() {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'templates/entryform.html',
+                    controller: 'EntryFormController',
+                });
+
+                modalInstance.result.then(
+                    function(selectedItem) {
+                        $scope.selected = selectedItem;
+                    },
+                    function() {
+                        console.log('Modal dismissed');
+                    });
+            };
+
+        }])  // controller
+
+    .controller('EntryFormController', [
+        '$scope',
+        '$uibModalInstance',
+        function(
+            $scope,
+            $uibModalInstance) {
+
+            $scope.entryData = {};
+
+            $scope.save = function() {
+                $uibModalInstance.close();
+                console.log("form entry: "+JSON.stringify($scope.entryData));
+            };
+
+            $scope.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
+
+        }])  // controller
 
 ;

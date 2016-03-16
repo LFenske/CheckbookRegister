@@ -19,6 +19,8 @@ x   filter on uncleared
     move by dragging
     change
     clear
+  tooltips
+    entries header
   authorization
   encryption
   multiple users - login

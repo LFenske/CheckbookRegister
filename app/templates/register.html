@@ -6,6 +6,7 @@
         <th>Balance</th>
         <th>Cleared</th>
         <th ng-click="toggleFilt()">Display</th>
+        <th>Add</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
         <td>{{misc.balance | currency}}</td>
         <td>{{cleared      | currency}}</td>
         <td ng-click="toggleFilt()">{{filterText}}</td>
+        <td ng-click="openEntryForm()">Add</td>
       </tr>
     </tbody>
   </table>

@@ -3,7 +3,7 @@
 angular.module('checkbook.controllers', ['ui.bootstrap'])
 
     .controller('RegisterController', [
-        '$scope',
+        '$rootScope',
         '$uibModal',
         'entries',
         'misc',
@@ -59,16 +59,21 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
         }])  // controller
 
     .controller('EntryFormController', [
-        '$scope',
+        '$rootScope',
         '$uibModalInstance',
         function(
             $scope,
             $uibModalInstance) {
 
+            var abs = function(x) { return x ? (x>0 ? x : -x) : 0; };
+
             $scope.entryData = {};
 
             $scope.save = function() {
                 $uibModalInstance.close();
+                $scope.entryData.desc = $scope.entryData.description;
+                $scope.entryData.amount = abs($scope.entryData.credit) - abs($scope.entryData.debit);
+                $scope.entries.push($scope.entryData);
                 console.log("form entry: "+JSON.stringify($scope.entryData));
             };
 

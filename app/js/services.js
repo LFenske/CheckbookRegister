@@ -2,7 +2,7 @@
 
 angular.module('checkbook.services', ['ngResource'])
 
-    .constant('baseURL', 'http://localhost:3000/')
+    .constant('baseURL', 'http://towanda.dsl.frii.com:3000/')
 
     .service('registerFactory', [
         '$resource',

@@ -1,20 +1,26 @@
 <div>
-  <h2>Entries</h2>
+  <button>
+    <label class="fa fa-caret-down"> Larry Fenske</label>
+  </button>
+  <button>
+    <label class="fa fa-caret-down"> acct: 123456789</label>
+  </button>
+  <button ng-click="openEntryForm()">
+    <label>Add Entry</label>
+  </button>
   <table class="table">
     <thead>
       <tr>
         <th>Balance</th>
         <th>Cleared</th>
         <th ng-click="toggleFilt()">Display</th>
-        <th>Add</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>{{misc.balance | currency}}</td>
         <td>{{cleared      | currency}}</td>
-        <td ng-click="toggleFilt()">{{filterText}}</td>
-        <td ng-click="openEntryForm()">Add</td>
+        <td ng-click="toggleFilt()"><button><label>{{filterText}}</label></button></td>
       </tr>
     </tbody>
   </table>

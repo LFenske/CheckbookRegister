@@ -1,30 +1,59 @@
-<div>
-  <button>
-    <label class="fa fa-caret-down"> Larry Fenske</label>
-  </button>
-  <button>
-    <label class="fa fa-caret-down"> acct: 123456789</label>
-  </button>
-  <button ng-click="openEntryForm()">
-    <label>Add Entry</label>
-  </button>
+<div ng-init="logged_in=true; accounted=logged_in && true;">
   <table class="table">
     <thead>
       <tr>
-        <th>Balance</th>
-        <th>Cleared</th>
-        <th ng-click="toggleFilt()">Display</th>
+        <th>User   </th>
+        <th ng-show="logged_in">Account</th>
+        <th ng-show="accounted">Clear Code</th>
+        <th ng-show="accounted">Balance</th>
+        <th ng-show="accounted">Cleared</th>
+        <th ng-show="accounted" ng-click="toggleFilt()">Display</th>
+        <th ng-show="accounted">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>{{misc.balance | currency}}</td>
-        <td>{{cleared      | currency}}</td>
-        <td ng-click="toggleFilt()"><button><label>{{filterText}}</label></button></td>
+        <td>
+          <select id="user" name="login_opt">
+            <option value="Larry Fenske">Larry Fenske</option>
+            <option value="logout">Log Out</option>
+          </select>
+        </td>
+        <td ng-show="logged_in">
+          <select id="account" name="account">
+            <option value="123456789">123456789</option>
+            <option value="234567890">234567890</option>
+            <option value="345678901">345678901</option>
+          </select>
+        </td>
+        <td ng-show="accounted">
+          <select id="clearcode" name="clearcode">
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+        </td>
+        <td ng-show="accounted">{{misc.balance | currency}}</td>
+        <td ng-show="accounted">{{cleared      | currency}}</td>
+        <td ng-show="accounted" ng-click="toggleFilt()"><button><label class="fa">{{filterText}}</label></button></td>
+        <td ng-show="accounted">
+          <button ng-click="openEntryForm()">
+            <label class="fa">Add Entry</label>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-  <table class="table table-striped table-bordered">
+  <table ng-show="accounted" class="table table-striped table-bordered">
     <thead>
       <tr>
         <th>Line</th>

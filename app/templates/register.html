@@ -15,15 +15,19 @@
       <tr>
         <td>
           <select id="user" name="login_opt">
-            <option value="Larry Fenske">Larry Fenske</option>
-            <option value="logout">Log Out</option>
+            <option value="login"    >Log In               </option>
+            <option value="logout"   >Log Out Current User </option>
+            <option value="logoutall">Log Out All Users    </option>
+            <option value="create"   >Create New User      </option>
+            <option value="Larry"    >Larry                </option>
           </select>
         </td>
         <td ng-show="logged_in">
           <select id="account" name="account">
-            <option value="123456789">123456789</option>
-            <option value="234567890">234567890</option>
-            <option value="345678901">345678901</option>
+            <option value="123456789">123456789   </option>
+            <option value="234567890">234567890   </option>
+            <option value="345678901">345678901   </option>
+            <option value="add"      >Add Account </option>
           </select>
         </td>
         <td ng-show="accounted">

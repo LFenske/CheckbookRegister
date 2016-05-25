@@ -1,0 +1,47 @@
+{
+  "name": "Entry",
+  "plural": "Entries",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "entrId": {
+      "type": "number",
+      "required": true
+    },
+    "acctId": {
+      "type": "number",
+      "required": true
+    },
+    "checkno": {
+      "type": "string",
+      "default": "''"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "default": "''"
+    },
+    "desc": {
+      "type": "string",
+      "default": "''"
+    },
+    "amount": {
+      "type": "number",
+      "default": "0"
+    },
+    "cleared": {
+      "type": "string",
+      "default": "''"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

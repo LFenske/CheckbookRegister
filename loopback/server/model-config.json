@@ -43,5 +43,9 @@
   "Entry": {
     "dataSource": "MongoDB",
     "public": true
+  },
+  "Miscellaneous": {
+    "dataSource": "MongoDB",
+    "public": true
   }
 }

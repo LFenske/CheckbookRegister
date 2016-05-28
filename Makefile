@@ -11,7 +11,7 @@ json-server:
 .PHONY: mongod
 mongod:
 	mkdir -p mongodb/data
-	cd mongodb; mongod --dbpath=data
+	cd mongodb; mongod --dbpath=data --smallfiles
 
 .PHONY: grunt
 grunt:

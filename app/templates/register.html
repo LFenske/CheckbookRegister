@@ -1,4 +1,4 @@
-<div ng-init="logged_in=true; accounted=logged_in && true;">
+<div>
   <table class="table">
     <thead>
       <tr>
@@ -15,11 +15,10 @@
       <tr>
         <td>
           <select id="user" name="login_opt">
-            <option value="login"    >Log In               </option>
-            <option value="logout"   >Log Out Current User </option>
-            <option value="logoutall">Log Out All Users    </option>
-            <option value="create"   >Create New User      </option>
-            <option value="Larry"    >Larry                </option>
+            <option ng-show="!logged_in" ng-click="openLoginForm()" value="login" ng-selected="!logged_in">Log In          </option>
+            <option ng-show="!logged_in" ng-click="openCreateForm()" value="create">Create New User </option>
+            <option ng-show=" logged_in"                     value="user"   ng-selected="logged_in">{{username}}           </option>
+            <option ng-show=" logged_in" ng-click="logout()" value="logout">Log Out         </option>
           </select>
         </td>
         <td ng-show="logged_in">

@@ -1,0 +1,30 @@
+<style>
+  label { text-align: right; }
+</style>
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h3 class="modal-title">Create user</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" name="createForm" ng-submit="createuser()" role="form">
+      <div class="row form-group">
+        <label class="col-sm-2 form-control-label" for="username">Username</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" ng-model="createData.username" id="username">
+        </div>
+        <label class="col-sm-2 form-control-label" for="password">Password</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" ng-model="createData.password" id="password">
+        </div>
+        <label class="col-sm-2 form-control-label" for="password">E-mail</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" ng-model="createData.email" id="email">
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-secondary" type="submit">Create user</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

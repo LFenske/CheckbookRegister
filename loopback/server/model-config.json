@@ -26,11 +26,11 @@
   },
   "RoleMapping": {
     "dataSource": "MongoDB",
-    "public": false
+    "public": true
   },
   "Role": {
     "dataSource": "MongoDB",
-    "public": false
+    "public": true
   },
   "Customer": {
     "dataSource": "MongoDB",

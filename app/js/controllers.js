@@ -9,8 +9,8 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 //        'entries',
 //        'misc',
         function(
+            $rootScope,
             $scope,
-            $localscope,
             $uibModal) {
 
 //            var misc    = "misc"   ;
@@ -18,32 +18,32 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 //
 //            console.log("misc = "+JSON.stringify(misc));
 //            console.log("entries = "+JSON.stringify(entries));
-//            $scope.entries = entries;
-//            $scope.misc    = misc;
+//            $rootScope.entries = entries;
+//            $rootScope.misc    = misc;
 //
-//            var balance    = $scope.misc.balance;
-//            $scope.cleared = $scope.misc.balance;
-//            for (var i=$scope.misc.next_id-1; i>=0; i--) {
-//                $scope.entries[i].balance = balance;
-//                balance -= $scope.entries[i].amount;
-//                if ($scope.entries[i].cleared === "") {
-//                    $scope.cleared -= $scope.entries[i].amount;
+//            var balance    = $rootScope.misc.balance;
+//            $rootScope.cleared = $rootScope.misc.balance;
+//            for (var i=$rootScope.misc.next_id-1; i>=0; i--) {
+//                $rootScope.entries[i].balance = balance;
+//                balance -= $rootScope.entries[i].amount;
+//                if ($rootScope.entries[i].cleared === "") {
+//                    $rootScope.cleared -= $rootScope.entries[i].amount;
 //                }
 //            }
 
             var setFilterFunc = function(display_all) {
-                $scope.display_all = display_all;
-                $scope.filterFunc = display_all ? function(){return true;} : true;
-                $scope.filterText = display_all ? "All" : "Uncleared";
+                $rootScope.display_all = display_all;
+                $rootScope.filterFunc = display_all ? function(){return true;} : true;
+                $rootScope.filterText = display_all ? "All" : "Uncleared";
             };
 
             setFilterFunc(true);
 
-            $scope.toggleFilt = function() {
-                setFilterFunc(! $scope.display_all);
+            $rootScope.toggleFilt = function() {
+                setFilterFunc(! $rootScope.display_all);
             };
 
-            $scope.openEntryForm = function() {
+            $rootScope.openEntryForm = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'templates/entryform.html',
@@ -52,14 +52,14 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 
                 modalInstance.result.then(
                     function(selectedItem) {
-                        $scope.selected = selectedItem;
+                        $rootScope.selected = selectedItem;
                     },
                     function() {
                         console.log('Modal dismissed');
                     });
             };
 
-            $scope.openLoginForm = function() {
+            $rootScope.openLoginForm = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'templates/loginform.html',
@@ -68,14 +68,14 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 
                 modalInstance.result.then(
                     function(selectedItem) {
-                        $scope.selected = selectedItem;
+                        $rootScope.selected = selectedItem;
                     },
                     function() {
                         console.log('Modal dismissed');
                     });
             };
 
-            $scope.openCreateForm = function() {
+            $rootScope.openCreateForm = function() {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'templates/createform.html',
@@ -84,23 +84,23 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 
                 modalInstance.result.then(
                     function(selectedItem) {
-                        $scope.selected = selectedItem;
+                        $rootScope.selected = selectedItem;
                     },
                     function() {
                         console.log('Modal dismissed');
                     });
             };
 
-            $scope.setLogged_in = function(p, name) {
-                $localscope.logged_in = p;
-                if ($localscope.logged_in) {
-                    $localscope.username = name;
+            $rootScope.setLogged_in = function(p, name) {
+                $scope.logged_in = p;
+                if ($scope.logged_in) {
+                    $scope.username = name;
                 } else {
-                    $localscope.accounted = false;
+                    $scope.accounted = false;
                 }
             };
 
-            $scope.setLogged_in(false);
+            $rootScope.setLogged_in(false);
 
         }])  // controller
 
@@ -108,22 +108,22 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
         '$rootScope',
         '$uibModalInstance',
         function(
-            $scope,
+            $rootScope,
             $uibModalInstance) {
 
             var abs = function(x) { return x ? (x>0 ? x : -x) : 0; };
 
-            $scope.entryData = {};
+            $rootScope.entryData = {};
 
-            $scope.save = function() {
+            $rootScope.save = function() {
                 $uibModalInstance.close();
-                $scope.entryData.desc = $scope.entryData.description;
-                $scope.entryData.amount = abs($scope.entryData.credit) - abs($scope.entryData.debit);
-                $scope.entries.push($scope.entryData);
-                console.log("form entry: "+JSON.stringify($scope.entryData));
+                $rootScope.entryData.desc = $rootScope.entryData.description;
+                $rootScope.entryData.amount = abs($rootScope.entryData.credit) - abs($rootScope.entryData.debit);
+                $rootScope.entries.push($rootScope.entryData);
+                console.log("form entry: "+JSON.stringify($rootScope.entryData));
             };
 
-            $scope.cancel = function() {
+            $rootScope.cancel = function() {
                 $uibModalInstance.dismiss('cancel');
             };
 
@@ -134,40 +134,40 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
         '$uibModalInstance',
         'loginService',
         function(
-            $scope,
+            $rootScope,
             $uibModalInstance,
             loginService) {
 
-            $scope.loginData = {};
-            $scope.createData = {};
+            $rootScope.loginData = {};
+            $rootScope.createData = {};
 
-            $scope.login = function() {
+            $rootScope.login = function() {
                 $uibModalInstance.close();
-                loginService.login($scope.loginData).then(
+                loginService.login($rootScope.loginData).then(
                     function(response) {
-                        $scope.access_token = response.id;
-                        $scope.setLogged_in(true, $scope.loginData.username);
+                        $rootScope.access_token = response.id;
+                        $rootScope.setLogged_in(true, $rootScope.loginData.username);
                         console.log("login succeeded: "+JSON.stringify(response));
-                        console.log("access_token: "+$scope.access_token);
+                        console.log("access_token: "+$rootScope.access_token);
                     },
                     function(response) {
                         console.log("login failed: "+JSON.stringify(response));
                     }
                 );
-                console.log("login form: "+JSON.stringify($scope.loginData));
+                console.log("login form: "+JSON.stringify($rootScope.loginData));
             };
 
-            $scope.logout = function() {
-                $scope.setLogged_in(false);
+            $rootScope.logout = function() {
+                $rootScope.setLogged_in(false);
             };
 
-            $scope.createuser = function() {
+            $rootScope.createuser = function() {
                 $uibModalInstance.close();
-                loginService.createuser($scope.createData);
-                console.log("create: "+JSON.stringify($scope.createData));
+                loginService.createuser($rootScope.createData);
+                console.log("create: "+JSON.stringify($rootScope.createData));
             };
 
-            $scope.cancel = function() {
+            $rootScope.cancel = function() {
                 $uibModalInstance.dismiss('cancel');
             };
 

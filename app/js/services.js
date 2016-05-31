@@ -45,4 +45,17 @@ angular.module('checkbook.services', ['ngResource'])
 
         }])
 
+    .service('accountService', [
+        '$resource',
+        'baseURL',
+        function(
+            $resource,
+            baseURL) {
+
+            this.createaccount = function(data) {
+                return $resource(baseURL+'/Accounts').save(data);
+            };
+
+        }])
+
 ;

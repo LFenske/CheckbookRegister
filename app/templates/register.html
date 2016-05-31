@@ -16,17 +16,14 @@
         <td>
           <select id="user" name="login_opt">
             <option ng-show="!logged_in" ng-click="openLoginForm()" value="login" ng-selected="!logged_in">Log In          </option>
-            <option ng-show="!logged_in" ng-click="openCreateForm()" value="create">Create New User </option>
-            <option ng-show=" logged_in"                     value="user"   ng-selected="logged_in">{{username}}           </option>
+            <option ng-show="!logged_in" ng-click="openCreateUserForm()" value="create">Create New User </option>
+            <option ng-show=" logged_in"                     value="user"   ng-selected="logged_in">{{username}} </option>
             <option ng-show=" logged_in" ng-click="logout()" value="logout">Log Out         </option>
           </select>
         </td>
         <td ng-show="logged_in">
           <select id="account" name="account">
-            <option value="123456789">123456789   </option>
-            <option value="234567890">234567890   </option>
-            <option value="345678901">345678901   </option>
-            <option value="add"      >Add Account </option>
+            <option ng-click="openCreateAccountForm()" value="add">Create Account </option>
           </select>
         </td>
         <td ng-show="accounted">

@@ -69,10 +69,16 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                     'LoginFormController');
             };
 
-            $scope.openCreateForm = function() {
+            $scope.openCreateUserForm = function() {
                 $scope.openForm(
-                    'templates/createform.html',
+                    'templates/createuserform.html',
                     'LoginFormController');
+            };
+
+            $scope.openCreateAccountForm = function() {
+                $scope.openForm(
+                    'templates/createaccountform.html',
+                    'AccountFormController');
             };
 
             $scope.openEntryForm = function() {
@@ -81,10 +87,12 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                     'EntryFormController');
             };
 
-            $rootScope.setLogged_in = function(p, name) {
+            $rootScope.setLogged_in = function(p, name, userId) {
                 $scope.logged_in = p;
                 if ($scope.logged_in) {
                     $scope.username = name;
+                    $scope.userId = userId;
+                    console.log("username: "+$scope.username+", userId: "+$scope.userId);
                 } else {
                     $scope.accounted = false;
                 }
@@ -107,16 +115,16 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             loginService) {
 
             $scope.loginData = {};
-            $scope.createData = {};
+            $scope.createUserData = {};
 
             $scope.login = function() {
                 $uibModalInstance.close();
                 loginService.login($scope.loginData).then(
                     function(response) {
-                        $rootScope.access_token = response.id;
-                        $rootScope.setLogged_in(true, $scope.loginData.username);
+                        loginService.access_token = response.id;
+                        $rootScope.setLogged_in(true, $scope.loginData.username, response.userId);
                         console.log("login succeeded: "+JSON.stringify(response));
-                        console.log("access_token: "+$rootScope.access_token);
+                        console.log("access_token: "+loginService.access_token);
                     },
                     function(response) {
                         console.log("login failed: "+JSON.stringify(response));
@@ -127,8 +135,8 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 
             $scope.createuser = function() {
                 $uibModalInstance.close();
-                loginService.createuser($scope.createData);
-                console.log("create: "+JSON.stringify($scope.createData));
+                loginService.createuser($scope.createUserData);
+                console.log("create: "+JSON.stringify($scope.createUserData));
             };
 
             $scope.cancel = function() {
@@ -136,6 +144,29 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             };
 
         }])  // LoginFormController
+
+    .controller('AccountFormController', [
+        '$scope',
+        '$uibModalInstance',
+        'accountService',
+        function(
+            $scope,
+            $uibModalInstance,
+            accountService) {
+//TODO
+            $scope.createAccountData = {};
+
+            $scope.createaccount = function() {
+                $uibModalInstance.close();
+                accountService.createaccount($scope.createUserData);
+                console.log("create: "+JSON.stringify($scope.createAccountData));
+            };
+
+            $scope.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
+
+        }])  // AccountFormController
 
     .controller('EntryFormController', [
         '$rootScope',

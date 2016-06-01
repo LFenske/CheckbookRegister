@@ -31,9 +31,13 @@ angular.module('checkbook.services', ['ngResource'])
             $resource,
             baseURL) {
 
-            this.createuser = function(data) {
+            this.custId = null;
+
+            this.createUser = function(data) {
                 return $resource(baseURL+'/Customers').save(data);
             };
+
+            this.setLogged_in = function() {};
 
             this.login = function(data) {
                 return $resource(baseURL+'/Customers/login').save(data).$promise;
@@ -47,13 +51,40 @@ angular.module('checkbook.services', ['ngResource'])
 
     .service('accountService', [
         '$resource',
+        'loginService',
         'baseURL',
         function(
             $resource,
+            loginService,
             baseURL) {
 
-            this.createaccount = function(data) {
-                return $resource(baseURL+'/Accounts').save(data);
+            this.createAccount = function(data, cb) {
+                data.custId = loginService.custId;
+                console.log("accountService.createAccount: "+JSON.stringify(data));
+                $resource(baseURL+'/Accounts?access_token='+loginService.access_token).save(data)
+                    .$promise.then(
+                        function(response) {
+                            console.log("createAccount: "+JSON.stringify(response));
+                            cb();
+                        },
+                        function(response) {
+                            console.log("createAccount: "+JSON.stringify(response));
+                        }
+                    );
+            };
+
+            this.getAccountList = function(cb) {
+                console.log("try getting from "+baseURL+'/Accounts?access_token='+loginService.access_token);
+                this.accountList = $resource(baseURL+'/Accounts?access_token='+loginService.access_token+'&filter='+JSON.stringify({where: {custId: loginService.custId}}))
+                    .query(
+                        function(response) {
+                            console.log("getAccountList: "+JSON.stringify(response));
+                            cb(response);
+                        },
+                        function(response) {
+                            console.log("getAccountList: "+JSON.stringify(response));
+                        }
+                    );
             };
 
         }])

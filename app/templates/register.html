@@ -23,6 +23,7 @@
         </td>
         <td ng-show="logged_in">
           <select id="account" name="account">
+            <option ng-repeat="acct in accountData" value="{{acct.acctId}}">{{acct.acctname}} </option>
             <option ng-click="openCreateAccountForm()" value="add">Create Account </option>
           </select>
         </td>

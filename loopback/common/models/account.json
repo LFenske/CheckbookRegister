@@ -7,7 +7,7 @@
   },
   "properties": {
     "custId": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "acctname": {
@@ -25,7 +25,7 @@
       "permission": "DENY"
     },
     {
-      "accessType": "READ",
+      "accessType": "*",
       "principalType": "ROLE",
       "principalId": "$authenticated",
       "permission": "ALLOW"

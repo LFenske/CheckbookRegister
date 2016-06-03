@@ -132,13 +132,69 @@ angular.module('checkbook.services', ['ngResource'])
             };
 
             this.update = function(data) {
-                this.info = $resource(baseURL+'/Accounts/'+this.custId+'?access_token='+loginService.access_token, null, {'update': {method: 'PUT'}}).update(
+                this.info = $resource(baseURL+'/Accounts/'+this.acctId+'?access_token='+loginService.access_token, null, {'update': {method: 'PUT'}}).update(
                     data,
                     function(response) {
                         console.log('accountService.update: '+JSON.stringify(response));
                     },
                     function(response) {
                         console.log('accountService.update: '+JSON.stringify(response));
+                    });
+            };
+
+        }])
+
+    .service('entryService', [
+        '$resource',
+        'loginService',
+        'accountService',
+        'baseURL',
+        function(
+            $resource,
+            loginService,
+            accountService,
+            baseURL) {
+
+            this.createEntry = function(data, cb) {
+                data.acctId = accountService.acctId;
+                console.log("entryService.createEntry: "+JSON.stringify(data));
+                $resource(baseURL+'/Entries?access_token='+loginService.access_token).save(data)
+                    .$promise.then(
+                        function(response) {
+                            console.log("createEntry: "+JSON.stringify(response));
+                            if (cb) {
+                                cb();
+                            }
+                        },
+                        function(response) {
+                            console.log("createEntry: "+JSON.stringify(response));
+                        }
+                    );
+            };
+
+            this.getEntries = function(cb) {
+                $resource(baseURL+'/Entries?access_token='+loginService.access_token+'&where='+JSON.stringify({acctId:accountService.acctId}))
+                    .query()
+                    .$promise
+                    .then(
+                        function(response) {
+                            console.log("getEntries pass: "+JSON.stringify(response));
+                            cb(response);
+                        },
+                        function(response) {
+                            console.log("getEntries fail: "+JSON.stringify(response));
+                        }
+                    );
+            };
+
+            this.update = function(entrId, data) {
+                $resource(baseURL+'/Entries/'+entrId+'?access_token='+loginService.access_token, null, {'update': {method: 'PUT'}}).update(
+                    data,
+                    function(response) {
+                        console.log('entryService.update: '+JSON.stringify(response));
+                    },
+                    function(response) {
+                        console.log('entryService.update: '+JSON.stringify(response));
                     });
             };
 

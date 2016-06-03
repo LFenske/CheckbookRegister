@@ -28,23 +28,12 @@
           </select>
         </td>
         <td ng-show="accounted">
-          <select id="clearcode" name="clearcode">
-            <option value="01">01</option>
-            <option value="02">02</option>
-            <option value="03">03</option>
-            <option value="04">04</option>
-            <option value="05">05</option>
-            <option value="06">06</option>
-            <option value="07">07</option>
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
+          <select id="clearcode" name="clearcode" ng-model="clearcode">
+            <option ng-repeat="cc in ['01','02','03','04','05','06','07','08','09','10','11','12']" value="{{cc}}" ng-click="selectClearcode()" ng-selected="cc === clearcode">{{cc}}</option>
           </select>
         </td>
-        <td ng-show="accounted">{{misc.balance | currency}}</td>
-        <td ng-show="accounted">{{cleared      | currency}}</td>
+        <td ng-show="accounted">{{balance | currency}}</td>
+        <td ng-show="accounted">{{cleared | currency}}</td>
         <td ng-show="accounted" ng-click="toggleFilt()"><button><label class="fa">{{filterText}}</label></button></td>
         <td ng-show="accounted">
           <button ng-click="openEntryForm()">
@@ -70,12 +59,12 @@
     </thead>
     <tbody>
       <tr ng-repeat="entry in entries | filter:{cleared:''}:filterFunc">
-        <td>{{entry.id+1}}</td>
+        <td>{{entry.lineno+1}}</td>
         <td>{{entry.checkno}}</td>
         <td>{{entry.date}}</td>
         <td>{{entry.name}}</td>
         <td>{{entry.desc}}</td>
-        <td>{{entry.cleared}}</td>
+        <td ng-click="toggleCleared(entry.lineno)">{{entry.cleared}}</td>
         <td class="right">{{(entry.amount<0) ? (entry.amount | currency) : ''}}</td>
         <td class="right">{{(entry.amount>0) ? (entry.amount | currency) : ''}}</td>
         <td>{{entry.balance | currency}}</td>

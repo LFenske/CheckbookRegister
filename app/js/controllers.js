@@ -8,6 +8,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
         '$uibModal',
         'loginService',
         'accountService',
+        'entryService',
 //        'entries',
 //        'misc',
         function(
@@ -15,7 +16,8 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             $scope,
             $uibModal,
             loginService,
-            accountService) {
+            accountService,
+            entryService) {
 
 //            var misc    = "misc"   ;
 //            var entries = "entries";
@@ -100,6 +102,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                     if (loginService.info.recent !== acctId) {
                         loginService.update({recent:acctId});
                     }
+                    entryService.getEntries($scope.setEntries);
                 }
             };
             accountService.setAccounted = $scope.setAccounted;
@@ -140,6 +143,77 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 
             $rootScope.getAccountList = function() {
                 accountService.getAccountList($scope.setAccountData);
+            };
+
+
+            $scope.clearcode = "01";
+
+            $scope.setClearcode = function(newClearcode) {
+                $scope.clearcode = newClearcode;
+                if (accountService.info.clearcode !== newClearcode) {
+                    accountService.update({clearcode:newClearcode});
+                }
+            };
+            accountService.setClearcode = $scope.setClearcode;
+
+            $scope.selectClearcode = function() {
+                $scope.setClearcode($scope.clearcode);
+            };
+
+            $scope.toggleCleared = function(lineno) {
+                if ($scope.entries[lineno].cleared) {
+                    $scope.entries[lineno].cleared = "";
+                    $scope.cleared -= $scope.entries[lineno].amount;
+                } else {
+                    $scope.entries[lineno].cleared = $scope.clearcode;
+                    $scope.cleared += $scope.entries[lineno].amount;
+                }
+                entryService.update($scope.entries[lineno].id, {cleared: $scope.entries[lineno].cleared});
+                console.log("toggleCleared: "+lineno+" = "+$scope.entries[lineno].cleared);
+                //TODO
+            };
+
+
+            $scope.setEntries = function(data) {
+                var ix;
+                console.log("setEntries: "+JSON.stringify(data));
+                $scope.entries = [];
+                for (ix=0; ix<data.length; ix++) {
+                    var d=data[ix];
+                    $scope.entries[d.lineno] = d;
+                }
+                $scope.balance = 0;
+                $scope.cleared = 0;
+                for (ix=0; ix<$scope.entries.length; ix++) {
+                    var e=$scope.entries[ix];
+                    if (e) {
+                        console.log("balance: "+$scope.balance+", e: "+JSON.stringify(e));
+                        $scope.balance += e.amount;
+                        if (e.cleared) {
+                            $scope.cleared += e.amount;
+                        }
+                        e.balance = $scope.balance;
+                        console.log("balance: "+$scope.balance+", e: "+JSON.stringify(e));
+                    }  else {
+                        $scope.entries[ix] = {lineno: ix, amount: 0};
+                    }
+                }
+                console.log("balance: "+$scope.balance);
+                console.log("cleared: "+$scope.cleared);
+                console.log("$scope.entries: "+JSON.stringify($scope.entries));
+            };
+
+            $rootScope.appendEntry = function(e) {
+                e.lineno = accountService.info.nextline;
+                $scope.entries[e.lineno] = e;
+                accountService.info.nextline++;
+                accountService.update({nextline:accountService.info.nextline});
+                entryService.createEntry(e);
+                $scope.balance += e.amount;
+                if (e.cleared) {
+                    $scope.cleared += e.amount;
+                }
+                e.balance = $scope.balance;
             };
 
         }])  // RegisterController
@@ -253,10 +327,11 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             $scope.entryData = {};
 
             $scope.save = function() {
+                console.log("form entry: "+JSON.stringify($scope.entryData));
                 $uibModalInstance.close();
                 $scope.entryData.desc = $scope.entryData.description;
                 $scope.entryData.amount = abs($scope.entryData.credit) - abs($scope.entryData.debit);
-                $rootScope.entries.push($scope.entryData);
+                $rootScope.appendEntry($scope.entryData);
                 console.log("form entry: "+JSON.stringify($scope.entryData));
             };
 

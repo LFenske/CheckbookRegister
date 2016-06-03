@@ -8,7 +8,7 @@
   },
   "properties": {
     "acctId": {
-      "type": "number",
+      "type": "string",
       "required": true
     },
     "lineno": {
@@ -20,7 +20,7 @@
       "default": ""
     },
     "date": {
-      "type": "date",
+      "type": "string",
       "required": true
     },
     "name": {

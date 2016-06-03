@@ -2,7 +2,7 @@
 
 angular.module('checkbook.services', ['ngResource'])
 
-    .constant('baseURL', 'http://localhost:3000/api')
+    .constant('baseURL', 'http://172.16.1.10:3000/api')
 
     .service('registerFactory', [
         '$resource',
@@ -173,7 +173,7 @@ angular.module('checkbook.services', ['ngResource'])
             };
 
             this.getEntries = function(cb) {
-                $resource(baseURL+'/Entries?access_token='+loginService.access_token+'&where='+JSON.stringify({acctId:accountService.acctId}))
+                $resource(baseURL+'/Entries?access_token='+loginService.access_token+'&filter='+JSON.stringify({where: {acctId: accountService.acctId}}))
                     .query()
                     .$promise
                     .then(

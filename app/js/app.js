@@ -17,14 +17,6 @@ angular.module('checkbook', [
                     'content': {
                         templateUrl: 'templates/register.html',
                         controller : 'RegisterController',
-//                        resolve: {
-//                            entries: ['registerFactory', function(registerFactory) {
-//                                return registerFactory.getEntries().query();
-//                            }],
-//                            misc: ['registerFactory', function(registerFactory) {
-//                                return registerFactory.getMisc().get({id:0}).$promise;
-//                            }],
-//                        },
                     },
                 },
             })
@@ -35,11 +27,6 @@ angular.module('checkbook', [
                     'content@': {
                         templateUrl: 'templates/register.html',
                         controller: 'RegisterController',
-//                        resolve: {
-//                            entries: ['registerFactory', function(registerFactory) {
-//                                return registerFactory.query();
-//                            }],
-//                        },
                     },
                 },
             })

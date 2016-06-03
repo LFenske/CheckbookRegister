@@ -9,8 +9,6 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
         'loginService',
         'accountService',
         'entryService',
-//        'entries',
-//        'misc',
         function(
             $rootScope,
             $scope,
@@ -18,24 +16,6 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             loginService,
             accountService,
             entryService) {
-
-//            var misc    = "misc"   ;
-//            var entries = "entries";
-//
-//            console.log("misc = "+JSON.stringify(misc));
-//            console.log("entries = "+JSON.stringify(entries));
-//            $rootScope.entries = entries;
-//            $rootScope.misc    = misc;
-//
-//            var balance    = $rootScope.misc.balance;
-//            $rootScope.cleared = $rootScope.misc.balance;
-//            for (var i=$rootScope.misc.next_id-1; i>=0; i--) {
-//                $rootScope.entries[i].balance = balance;
-//                balance -= $rootScope.entries[i].amount;
-//                if ($rootScope.entries[i].cleared === "") {
-//                    $rootScope.cleared -= $rootScope.entries[i].amount;
-//                }
-//            }
 
             var setFilterFunc = function(display_all) {
                 $scope.display_all = display_all;
@@ -170,7 +150,6 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                 }
                 entryService.update($scope.entries[lineno].id, {cleared: $scope.entries[lineno].cleared});
                 console.log("toggleCleared: "+lineno+" = "+$scope.entries[lineno].cleared);
-                //TODO
             };
 
 

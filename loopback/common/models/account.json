@@ -13,6 +13,14 @@
     "acctname": {
       "type": "string",
       "required": true
+    },
+    "clearcode": {
+      "type": "string",
+      "default": "01"
+    },
+    "nextline": {
+      "type": "number",
+      "default": 0
     }
   },
   "validations": [],
@@ -35,6 +43,13 @@
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "count"
     }
   ],
   "methods": {}

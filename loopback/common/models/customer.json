@@ -11,8 +11,8 @@
       "default": false
     },
     "recent": {
-      "type": "number",
-      "default": "-1"
+      "type": "string",
+      "default": ""
     }
   },
   "validations": [],
@@ -42,6 +42,13 @@
       "principalId": "admin",
       "permission": "ALLOW",
       "property": "delete"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "count"
     }
   ],
   "methods": {}

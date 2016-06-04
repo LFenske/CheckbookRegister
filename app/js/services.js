@@ -2,7 +2,7 @@
 
 angular.module('checkbook.services', ['ngResource'])
 
-    .constant('baseURL', 'http://172.16.1.10:3000/api')
+    .constant('baseURL', 'http://towanda.dsl.frii.com:3000/api')
 
     .service('registerFactory', [
         '$resource',
@@ -163,7 +163,7 @@ angular.module('checkbook.services', ['ngResource'])
                         function(response) {
                             console.log("createEntry: "+JSON.stringify(response));
                             if (cb) {
-                                cb();
+                                cb(response);
                             }
                         },
                         function(response) {
@@ -187,10 +187,13 @@ angular.module('checkbook.services', ['ngResource'])
                     );
             };
 
-            this.update = function(entrId, data) {
+            this.update = function(entrId, data, cb) {
                 $resource(baseURL+'/Entries/'+entrId+'?access_token='+loginService.access_token, null, {'update': {method: 'PUT'}}).update(
                     data,
                     function(response) {
+                        if (cb) {
+                            cb(response);
+                        }
                         console.log('entryService.update: '+JSON.stringify(response));
                     },
                     function(response) {

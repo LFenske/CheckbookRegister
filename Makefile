@@ -1,7 +1,8 @@
 
 default:  # no default
 
-# Need to run json-server in one window, then either grunt or gulp in another.
+# Need to make mongod in one window, make server in another,
+# then either make grunt or make gulp in a third.
 
 .PHONY:	json-server
 json-server:
@@ -10,8 +11,14 @@ json-server:
 
 .PHONY: mongod
 mongod:
+	# Runs until killed.
 	mkdir -p mongodb/data
 	cd mongodb; mongod --dbpath=data --smallfiles
+
+.PHONY: server
+server:
+	# Runs until killed.
+	cd loopback; node .
 
 .PHONY: grunt
 grunt:
@@ -29,6 +36,7 @@ gulp:
 setup:
 	bower install
 	npm install
+	cd loopback; npm install
 
 # Remove temporary stuff that is automatically recreated when needed.
 .PHONY: clean
@@ -42,4 +50,5 @@ clean:
 clobber:	clean
 	rm -rf bower_components
 	rm -rf node_modules
+	rm -rf loopback/node_modules
 

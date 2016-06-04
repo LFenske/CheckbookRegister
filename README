@@ -1,0 +1,25 @@
+
+Prerequisites
+=============
+nodejs nodejs-legacy
+npm
+mongodb
+$ npm install -g grunt-cli
+$ npm install -g bower
+
+Installation
+============
+Clone sources from github: git clone
+$ cd checkbook   (the directory with this README and a Makefile)
+$ make setup
+$ cd loopback
+$ npm install
+
+Running
+=======
+window 1: make mongod
+Wait for server to start.
+window 2: cd loopback; node .
+Wait for server to start.
+window 3: make grunt
+

@@ -187,7 +187,6 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                 $scope.entries[e.lineno] = e;
                 accountService.info.nextline++;
                 accountService.update({nextline:accountService.info.nextline});
-                entryService.createEntry(e);
                 $scope.balance += e.amount;
                 if (e.cleared) {
                     $scope.cleared += e.amount;
@@ -296,10 +295,12 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
         '$rootScope',
         '$scope',
         '$uibModalInstance',
+        'entryService',
         function(
             $rootScope,
             $scope,
-            $uibModalInstance) {
+            $uibModalInstance,
+            entryService) {
 
             var abs = function(x) { return x ? (x>0 ? x : -x) : 0; };
 
@@ -310,7 +311,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                 $uibModalInstance.close();
                 $scope.entryData.desc = $scope.entryData.description;
                 $scope.entryData.amount = abs($scope.entryData.credit) - abs($scope.entryData.debit);
-                $rootScope.appendEntry($scope.entryData);
+                entryService.createEntry($scope.entryData, $rootScope.appendEntry);
                 console.log("form entry: "+JSON.stringify($scope.entryData));
             };
 

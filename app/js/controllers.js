@@ -85,8 +85,8 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                 if ($scope.accounted) {
                     accountService.acctId = acctId;
                     $scope.acctname = "unknown name";
-                    for (var ix=0; ix<$scope.accountData.length; ix++) {
-                        var acct = $scope.accountData[ix];
+                    for (var ix=0; ix<$rootScope.accountData.length; ix++) {
+                        var acct = $rootScope.accountData[ix];
                         if (acct.id === acctId) {
                             console.log("match");
                             $scope.acctname = acct.acctname;
@@ -135,7 +135,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             };
 
             $scope.setAccountData = function(data) {
-                $scope.accountData = data;
+                $rootScope.accountData = data;
                 console.log("setAccountData: "+JSON.stringify(data));
                 $scope.setAccounted($scope.accounted, accountService.acctId);
             };

@@ -4,28 +4,28 @@ x entry number
 x store in database
 x   latest balance
 x   next entry number
-  top line with
+x top line with
 x   balance
 x   cleared
 x   filter on uncleared
-    text to clear with
-    account dropdown
-    logout
+x   text to clear with
+x   account dropdown
+x   logout
 x entry form
   top line in fixed position
-  adaptable to small screen size
+x adaptable to small screen size
   edit entries
-    add
+x   add
     delete
     move by dragging
     change
-    clear
+x   clear
   tooltips
     entries header
-  authorization
+x authorization
   encryption
-  multiple users - login
-  multiple accounts
+x multiple users - login
+x multiple accounts
   undo
   slurp info from bank, drag to existing entry or create new
   page break
@@ -33,4 +33,4 @@ x entry form
   book archive
   download
   print
-  proper backend
+x proper backend

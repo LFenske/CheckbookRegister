@@ -1,3 +1,9 @@
+What it is
+==========
+Checkbook Register is a web-based application to help manage a
+checkbook register by automating many checkbook register processes.
+See my final report for the Coursera Web Development Capstone Project
+from 2016-06-12.
 
 Prerequisites
 =============
@@ -9,17 +15,28 @@ $ npm install -g bower
 
 Installation
 ============
-Clone sources from github: git clone
-$ cd checkbook   (the directory with this README and a Makefile)
+$ git clone https://github.com/LFenske/CheckbookRegister.git
+$ cd CheckbookRegister   (the directory with this README and a Makefile)
 $ make setup
-$ cd loopback
-$ npm install
+
+Configuration
+=============
+If you want your MongoDB server to run elsewhere, configure the
+MongoDB host and port in loopback/server/datasources.json, start it
+yourself, and skip "make mongod" below.
+
+Change the definition of baseURL in app/js/services.js to reflect the
+host of your NodeJS server.  A reasonable value is
+'http://localhost:3000/api'.  If it's somewhere else, start it
+yourself and skip "make server" below.
 
 Running
 =======
 window 1: make mongod
 Wait for server to start.
-window 2: cd loopback; node .
+window 2: make server
 Wait for server to start.
 window 3: make grunt
 
+Browse to the location of your server, port 9000,
+e.g. http://towanda.dsl.frii.com:9000 or http://localhost:9000.

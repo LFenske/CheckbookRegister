@@ -10,7 +10,7 @@
     <form class="form-horizontal" name="entryForm" ng-submit="save()" role="form">
       <div class="row form-group">
 
-        <label class="col-sm-2 form-control-label" for="number">Number</label>
+        <label class="col-sm-2 form-control-label" for="number">Check No</label>
         <div class="col-sm-2">
           <input type="text" class="form-control" ng-model="entryData.number" id="number"/>
         </div>
@@ -31,16 +31,16 @@
         <div class="col-sm-10">
           <input type="text" class="form-control" ng-model="entryData.name" id="name"/>
         </div>
-        <label class="col-sm-2 form-control-label" for="description">Description</label>
+        <label class="col-sm-2 form-control-label" for="desc">Description</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" ng-model="entryData.description" id="description"/>
+          <input type="text" class="form-control" ng-model="entryData.desc" id="desc"/>
         </div>
 
         <label class="col-sm-1 form-control-label" for="debit">Debit</label>
         <div class="col-sm-3">
           <input type="text" class="form-control" ng-model="entryData.debit" id="debit"/>
         </div>
-        <label class="col-sm-1 form-control-label" for="credit">Credit</label>
+        <label class="col-sm-1 form-control-label" for="credit">Deposit</label>
         <div class="col-sm-3">
           <input type="text" class="form-control" ng-model="entryData.credit" id="credit"/>
         </div>

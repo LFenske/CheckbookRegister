@@ -1,0 +1,17 @@
+<style>
+  label { text-align: right; }
+</style>
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h3 class="modal-title">Select account</h3>
+  </div>
+  <div class="modal-body">
+    <div ng-repeat="acct in accountData">
+      <button ng-click="selectAccount(acct.id, acct.acctname)">{{acct.acctname}}</button>
+    </div>
+    <div>
+      <button ng-click="openCreateAccountForm()">Create Account</button>
+    </div>
+  </div>
+</div>

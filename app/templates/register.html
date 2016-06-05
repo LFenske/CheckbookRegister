@@ -14,22 +14,20 @@
     <tbody>
       <tr>
         <td>
-          <select id="user" name="login_opt">
-            <option ng-show="!logged_in" ng-click="openLoginForm()" value="login" ng-selected="!logged_in">Log In          </option>
-            <option ng-show="!logged_in" ng-click="openCreateUserForm()" value="create">Create New User </option>
-            <option ng-show=" logged_in"                     value="user"   ng-selected="logged_in">{{username}} </option>
-            <option ng-show=" logged_in" ng-click="logout()" value="logout">Log Out         </option>
-          </select>
+          <button ng-show="!logged_in" ng-click="openLoginForm()">Log In          </button>
+          <button ng-show="!logged_in" ng-click="openCreateUserForm()">Create New User </button>
+          <span   ng-show=" logged_in" >{{username}}    </span>
+          <button ng-show=" logged_in" ng-click="logout()">Log Out         </button>
         </td>
         <td ng-show="logged_in">
-          <select id="account" name="account" ng-model="accountSelected">
-            <option ng-repeat="acct in accountData" ng-click="selectAccount()" value="{{acct.id}}">{{acct.acctname}} </option>
-            <option ng-click="openCreateAccountForm()" value="add">Create Account </option>
-          </select>
+          <button ng-click="openSelectAccountModal()">
+            <scan ng-show=" accounted">{{acctname}}</scan>
+            <scan ng-show="!accounted">Create</scan>
+          </button>
         </td>
         <td ng-show="accounted">
           <select id="clearcode" name="clearcode" ng-model="clearcode">
-            <option ng-repeat="cc in ['01','02','03','04','05','06','07','08','09','10','11','12']" value="{{cc}}" ng-click="selectClearcode()" ng-selected="cc === clearcode">{{cc}}</option>
+            <option ng-repeat="cc in ['X', '01','02','03','04','05','06','07','08','09','10','11','12']" value="{{cc}}" ng-click="selectClearcode()" ng-selected="cc === clearcode">{{cc}}</option>
           </select>
         </td>
         <td ng-show="accounted">{{balance | currency}}</td>
@@ -47,27 +45,27 @@
     <thead>
       <tr>
         <th>Line</th>
-        <th>Number</th>
+        <th>Check No</th>
         <th>Date</th>
         <th>Name</th>
         <th>Description</th>
         <th>Cleared</th>
         <th>Debit</th>
-        <th>Credit</th>
+        <th>Deposit</th>
         <th>Balance</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="entry in entries | filter:{cleared:''}:filterFunc">
         <td>{{entry.lineno+1}}</td>
-        <td>{{entry.checkno}}</td>
+        <td>{{entry.number}}</td>
         <td>{{entry.date}}</td>
         <td>{{entry.name}}</td>
         <td>{{entry.desc}}</td>
         <td ng-click="toggleCleared(entry.lineno)">{{entry.cleared}}</td>
         <td class="right">{{(entry.amount<0) ? (entry.amount | currency) : ''}}</td>
         <td class="right">{{(entry.amount>0) ? (entry.amount | currency) : ''}}</td>
-        <td>{{entry.balance | currency}}</td>
+        <td class="right">{{entry.balance | currency}}</td>
         <!--
         -->
       </tr>

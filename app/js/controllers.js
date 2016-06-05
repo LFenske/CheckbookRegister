@@ -17,6 +17,17 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             accountService,
             entryService) {
 
+            $scope.selectedUser = null;
+            $scope.onUser = function() {
+                console.log("onUser("+$scope.selectedUser+")");
+                switch ($scope.selectedUser) {
+                case "login" : $scope.openLoginForm();      break;
+                case "create": $scope.openCreateUserForm(); break;
+                case "user"  :                              break;
+                case "logout": $scope.logout();             break;
+                }
+            };
+
             var setFilterFunc = function(display_all) {
                 $scope.display_all = display_all;
                 $scope.filterFunc = display_all ? function(){return true;} : true;
@@ -48,6 +59,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                         console.log('Modal dismissed');
                     });
             };
+            $rootScope.openForm = $scope.openForm;
 
             $scope.openLoginForm = function() {
                 $scope.openForm(
@@ -67,6 +79,12 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                     'AccountFormController');
             };
 
+            $scope.openSelectAccountModal = function() {
+                $scope.openForm(
+                    'templates/selectaccountmodal.html',
+                    'AccountSelectController');
+            };
+
             $scope.openEntryForm = function() {
                 $scope.openForm(
                     'templates/entryform.html',
@@ -77,6 +95,14 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                 $scope.accounted = p;
                 if ($scope.accounted) {
                     accountService.acctId = acctId;
+                    $scope.acctname = "unknown name";
+                    for (var ix=0; ix<$rootScope.accountData.length; ix++) {
+                        var acct = $rootScope.accountData[ix];
+                        if (acct.id === acctId) {
+                            console.log("match");
+                            $scope.acctname = acct.acctname;
+                        }
+                    }
                     console.log("acctId: "+accountService.acctId);
                     accountService.get();
                     if (loginService.info.recent !== acctId) {
@@ -111,14 +137,18 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             loginService.setLogged_in = $scope.setLogged_in;
 
             $scope.accountSelected = "add";
-            $scope.selectAccount = function() {
+            $rootScope.selectAccount = function(accountSelected) {
+                if (accountSelected) {
+                    $scope.accountSelected = accountSelected;
+                }
                 console.log("selectAccount accountSelected: "+JSON.stringify($scope.accountSelected));
                 $scope.setAccounted(true, $scope.accountSelected);
             };
 
             $scope.setAccountData = function(data) {
-                $scope.accountData = data;
+                $rootScope.accountData = data;
                 console.log("setAccountData: "+JSON.stringify(data));
+                $scope.setAccounted($scope.accounted, accountService.acctId);
             };
 
             $rootScope.getAccountList = function() {
@@ -126,7 +156,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             };
 
 
-            $scope.clearcode = "01";
+            $scope.clearcode = "X";
 
             $scope.setClearcode = function(newClearcode) {
                 $scope.clearcode = newClearcode;
@@ -183,10 +213,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             };
 
             $rootScope.appendEntry = function(e) {
-                e.lineno = accountService.info.nextline;
                 $scope.entries[e.lineno] = e;
-                accountService.info.nextline++;
-                accountService.update({nextline:accountService.info.nextline});
                 $scope.balance += e.amount;
                 if (e.cleared) {
                     $scope.cleared += e.amount;
@@ -291,16 +318,44 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
 
         }])  // AccountFormController
 
+    .controller('AccountSelectController', [
+        '$rootScope',
+        '$scope',
+        '$uibModalInstance',
+        function(
+            $rootScope,
+            $scope,
+            $uibModalInstance) {
+
+            $scope.selectAccount = function(acctId) {
+                $uibModalInstance.dismiss('selected');
+                $rootScope.selectAccount(acctId);
+            };
+
+            $scope.openCreateAccountForm = function() {
+                $rootScope.openForm(
+                    'templates/createaccountform.html',
+                    'AccountFormController');
+            };
+
+            $scope.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+            };
+
+        }])  // AccountSelectController
+
     .controller('EntryFormController', [
         '$rootScope',
         '$scope',
         '$uibModalInstance',
         'entryService',
+        'accountService',
         function(
             $rootScope,
             $scope,
             $uibModalInstance,
-            entryService) {
+            entryService,
+            accountService) {
 
             var abs = function(x) { return x ? (x>0 ? x : -x) : 0; };
 
@@ -309,8 +364,10 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             $scope.save = function() {
                 console.log("form entry: "+JSON.stringify($scope.entryData));
                 $uibModalInstance.close();
-                $scope.entryData.desc = $scope.entryData.description;
                 $scope.entryData.amount = abs($scope.entryData.credit) - abs($scope.entryData.debit);
+                $scope.entryData.lineno = accountService.info.nextline;
+                accountService.info.nextline++;
+                accountService.update({nextline:accountService.info.nextline});
                 entryService.createEntry($scope.entryData, $rootScope.appendEntry);
                 console.log("form entry: "+JSON.stringify($scope.entryData));
             };

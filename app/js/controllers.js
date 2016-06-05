@@ -17,17 +17,6 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             accountService,
             entryService) {
 
-            $scope.selectedUser = null;
-            $scope.onUser = function() {
-                console.log("onUser("+$scope.selectedUser+")");
-                switch ($scope.selectedUser) {
-                case "login" : $scope.openLoginForm();      break;
-                case "create": $scope.openCreateUserForm(); break;
-                case "user"  :                              break;
-                case "logout": $scope.logout();             break;
-                }
-            };
-
             var setFilterFunc = function(display_all) {
                 $scope.display_all = display_all;
                 $scope.filterFunc = display_all ? function(){return true;} : true;
@@ -96,8 +85,8 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                 if ($scope.accounted) {
                     accountService.acctId = acctId;
                     $scope.acctname = "unknown name";
-                    for (var ix=0; ix<$rootScope.accountData.length; ix++) {
-                        var acct = $rootScope.accountData[ix];
+                    for (var ix=0; ix<$scope.accountData.length; ix++) {
+                        var acct = $scope.accountData[ix];
                         if (acct.id === acctId) {
                             console.log("match");
                             $scope.acctname = acct.acctname;
@@ -146,7 +135,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
             };
 
             $scope.setAccountData = function(data) {
-                $rootScope.accountData = data;
+                $scope.accountData = data;
                 console.log("setAccountData: "+JSON.stringify(data));
                 $scope.setAccounted($scope.accounted, accountService.acctId);
             };

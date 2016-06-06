@@ -4,26 +4,6 @@ angular.module('checkbook.services', ['ngResource'])
 
     .constant('baseURL', 'http://towanda.dsl.frii.com:3000/api')
 
-    .service('registerFactory', [
-        '$resource',
-        'baseURL',
-        function(
-            $resource,
-            baseURL) {
-            this.getEntries = function() {
-                return $resource(baseURL+'/Entries/:id',
-                                 null,
-                                 {'update': {method: 'PUT'}});
-            };
-
-            this.getMisc    = function() {
-                return $resource(baseURL+'/Miscellanea',
-                                 null,
-                                 {'update': {method: 'PUT'}});
-            };
-
-        }])
-
     .service('loginService', [
         '$resource',
         'baseURL',

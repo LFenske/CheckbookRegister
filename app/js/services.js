@@ -16,7 +16,7 @@ angular.module('checkbook.services', ['ngResource'])
             this.setLogged_in = function() {};
 
             this.createUser = function(data) {
-                return $resource(baseURL+'/Customers').save(data);
+                return $resource(baseURL+'/Customers').save(data).$promise;
             };
 
             this.login = function(data) {

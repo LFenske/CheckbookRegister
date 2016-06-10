@@ -11,15 +11,15 @@
       <div class="row form-group">
         <label class="col-sm-2 form-control-label" for="username">Username</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" ng-model="createUserData.username" id="username">
+          <input type="text" class="form-control" ng-model="createUserData.username" id="username" required>
         </div>
         <label class="col-sm-2 form-control-label" for="password">Password</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" ng-model="createUserData.password" id="password">
+          <input type="password" class="form-control" ng-model="createUserData.password" id="password" required>
         </div>
         <label class="col-sm-2 form-control-label" for="password">E-mail</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" ng-model="createUserData.email" id="email">
+          <input type="email" class="form-control" ng-model="createUserData.email" id="email" required>
         </div>
         <div class="col-sm-1">
           <button class="btn btn-secondary" type="submit">Create user</button>

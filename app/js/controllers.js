@@ -113,6 +113,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                     // Search through the accountData for the name of
                     // this account.
                     $scope.acctname = "unknown name";
+                    // TODO Empty accountData give innocuous error.
                     for (var ix=0; ix<$rootScope.accountData.length; ix++) {
                         var acct = $rootScope.accountData[ix];
                         if (acct.id === acctId) {
@@ -292,11 +293,13 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
     .controller('LoginFormController', [
         '$rootScope',
         '$scope',
+        '$window',
         '$uibModalInstance',
         'loginService',
         function(
             $rootScope,
             $scope,
+            $window,
             $uibModalInstance,
             loginService) {
 
@@ -320,6 +323,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                     function(response) {
                         // Authentication failed.  TODO Tell the user.
                         console.log("login failed: "+JSON.stringify(response));
+                        $window.alert("login failed: "+response.data.error.message);
                     }
                 );
                 console.log("login form: "+JSON.stringify($scope.loginData));
@@ -335,11 +339,21 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                         function(response) {
                             if (response.count === 0) {
                                 // Good, not a duplicate name.
-                                loginService.createUser($scope.createUserData);
+                                loginService.createUser($scope.createUserData)
+                                    .then(
+                                        function(response) {
+                                            console.log("createUser: "+JSON.stringify(response));
+                                        },
+                                        function(response) {
+                                            console.log("createUser: "+JSON.stringify(response));
+                                            $window.alert("Creating user failed:\n"+response.data.error.message);
+                                        }
+                                    );
                                 console.log("createUser: "+JSON.stringify($scope.createUserData));
                             } else {
-                                // username is already in use.  TODO Tell the user.
+                                // username is already in use.
                                 console.log("createUser: user already exists "+response.count+" time(s)");
+                                $window.alert("That user name is already in use.");
                             }
                         },
                         function(response) {
@@ -359,11 +373,13 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
     .controller('AccountFormController', [
         '$rootScope',
         '$scope',
+        '$window',
         '$uibModalInstance',
         'accountService',
         function(
             $rootScope,
             $scope,
+            $window,
             $uibModalInstance,
             accountService) {
 
@@ -388,6 +404,7 @@ angular.module('checkbook.controllers', ['ui.bootstrap'])
                             } else {
                                 // This user already has an account with this name.  TODO Tell them.
                                 console.log("createAccount: account already exists "+response.count+" time(s)");
+                                $window.alert("That account already exists.");
                             }
                         },
                         function(response) {

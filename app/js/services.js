@@ -11,6 +11,7 @@ angular.module('checkbook.services', ['ngResource'])
             $resource,
             baseURL) {
 
+            // Inter-controller and inter-service communication variables.
             this.custId = null;
             this.access_token = null;
             this.setLogged_in = function() {};
@@ -31,7 +32,10 @@ angular.module('checkbook.services', ['ngResource'])
                 return $resource(baseURL+'/Customers/count?where='+JSON.stringify({username:username})).get().$promise;
             };
 
+            // The following functions requre authentication (login).
+
             this.get = function(cb) {
+                // Optionally call cb when current customer's data is retrieved.
                 this.info = $resource(baseURL+'/Customers/'+this.custId+'?access_token='+this.access_token).get(
                     function(response) {
                         console.log('loginService.get: '+JSON.stringify(response));
@@ -66,10 +70,12 @@ angular.module('checkbook.services', ['ngResource'])
             loginService,
             baseURL) {
 
+            // Inter-controller and inter-service communication variables.
             this.acctId = null;
             this.setAccounted = function() {};
 
             this.createAccount = function(data, cb) {
+                // Call cb() when data is retrieved.
                 data.custId = loginService.custId;
                 console.log("accountService.createAccount: "+JSON.stringify(data));
                 $resource(baseURL+'/Accounts?access_token='+loginService.access_token).save(data)
@@ -85,6 +91,7 @@ angular.module('checkbook.services', ['ngResource'])
             };
 
             this.getAccountList = function(cb) {
+                // Call cb(response) when data is retrieved.
                 this.accountList = $resource(baseURL+'/Accounts?access_token='+loginService.access_token+'&filter='+JSON.stringify({where: {custId: loginService.custId}}))
                     .query(
                         function(response) {
@@ -136,6 +143,7 @@ angular.module('checkbook.services', ['ngResource'])
             baseURL) {
 
             this.createEntry = function(data, cb) {
+                // Optionally call cb(response) when data is retrieved.
                 data.acctId = accountService.acctId;
                 console.log("entryService.createEntry: "+JSON.stringify(data));
                 $resource(baseURL+'/Entries?access_token='+loginService.access_token).save(data)
@@ -153,6 +161,7 @@ angular.module('checkbook.services', ['ngResource'])
             };
 
             this.getEntries = function(cb) {
+                // Call cb(response) when data is retrieved.
                 $resource(baseURL+'/Entries?access_token='+loginService.access_token+'&filter='+JSON.stringify({where: {acctId: accountService.acctId}}))
                     .query()
                     .$promise
@@ -168,6 +177,7 @@ angular.module('checkbook.services', ['ngResource'])
             };
 
             this.update = function(entrId, data, cb) {
+                // Optionally call cb(response) when data is retrieved.
                 $resource(baseURL+'/Entries/'+entrId+'?access_token='+loginService.access_token, null, {'update': {method: 'PUT'}}).update(
                     data,
                     function(response) {

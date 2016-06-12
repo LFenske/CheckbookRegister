@@ -2,8 +2,7 @@ What it is
 ==========
 Checkbook Register is a web-based application to help manage a
 checkbook register by automating many checkbook register processes.
-See my final report for the Coursera Web Development Capstone Project
-from 2016-06-12.
+See my final report for the Coursera Web Development Capstone Project from 2016-06-12.
 
 Prerequisites
 =============
@@ -40,3 +39,8 @@ window 3: make grunt
 
 Browse to the location of your server, port 9000,
 e.g. http://towanda.dsl.frii.com:9000 or http://localhost:9000.
+
+Contact
+=======
+Please contact the author at checkbook@towanda.com with any and all
+comments and suggestions.
